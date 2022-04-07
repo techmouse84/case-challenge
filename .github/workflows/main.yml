@@ -94,5 +94,5 @@ jobs:
       # Deploy the app
       - name: deploy_k8s
         run: | 
-          echo "sed -i -e "s/IMAGETAG/${ needs.push_to_Docker_Hub.outputs.imageTag }/g" Deployment.yml "
+          echo "sed -i -e "s/IMAGETAG/${{ needs.push_to_Docker_Hub.outputs.imageTag }}/g" Deployment.yml "
           echo "kubectl apply -f build/Deployment.yml"
