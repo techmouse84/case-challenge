@@ -27,7 +27,7 @@ COPY --from=base ./dist ./dist
 COPY ./config ./config
 
 # Copy static files
-COPY ./static ./static
+RUN mkdir static
 
 # Expose port 3000
 EXPOSE 3000
