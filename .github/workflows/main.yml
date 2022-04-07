@@ -50,7 +50,7 @@ jobs:
       # only if the app build and test successfully
       needs: [build_test]
       outputs:
-        semVer: ${{ steps.gitversion.outputs.semVer }}
+        imageTag: ${{ steps.gitversion.outputs.majorMinorPatch }}
       steps:
         - name: checkout repo
           uses: actions/checkout@v2
@@ -81,7 +81,7 @@ jobs:
             context: ./
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/case-challenge-demo:${{ steps.gitversion.outputs.semVer }}
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/case-challenge-demo:${{ steps.gitversion.outputs.majorMinorPatch  }}
           
   deploy:
     runs-on: ubuntu-latest
@@ -91,5 +91,5 @@ jobs:
       # Deploy the app
       - name: deploy_k8s
         run: | 
-          echo "sed -i -e "s/IMAGETAG/${ needs.push_to_Docker_Hub.outputs.semVer }/g" Deployment.yml "
+          echo "sed -i -e "s/IMAGETAG/${ needs.push_to_Docker_Hub.outputs.imageTag }/g" Deployment.yml "
           echo "kubectl apply -f build/Deployment.yml"
