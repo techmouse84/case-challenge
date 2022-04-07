@@ -81,7 +81,7 @@ jobs:
             context: ./
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/case-challenge-demo:${{ GITVERSION_SEMVER }}
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/case-challenge-demo:${{ steps.gitversion.outputs.semVer }}
           
   deploy:
     runs-on: ubuntu-latest
