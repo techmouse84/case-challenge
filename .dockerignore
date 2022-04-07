@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+# ignore .git and .cache folders
+.vscode
+.git
+.cache
+# ignore all markdown files (md) beside all README*.md other than README-secret.md
+*.md
+!README*.md
+README-secret.md
+# github related files
+.github/
