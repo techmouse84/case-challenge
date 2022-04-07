@@ -11,6 +11,7 @@ RUN ls
 RUN npm ci 
 RUN npm i -g typescript
 RUN tsc
+RUN mkdir -p "./static"
 
 
 FROM gcr.io/distroless/nodejs:16 AS final
@@ -21,13 +22,10 @@ WORKDIR /app
 # Copy node modules and build directory
 COPY --from=base ./node_modules ./node_modules
 COPY --from=base ./dist ./dist
-
+COPY --from=base ./static ./static
 
 #Copy config
 COPY ./config ./config
-
-# Copy static files
-RUN mkdir static
 
 # Expose port 3000
 EXPOSE 3000
